@@ -54,39 +54,36 @@
   </form>
 
   <script>
-    function handleSubmit(event) {
-  event.preventDefault();
-  const form = document.getElementById('customerForm');
-  const formData = new FormData(form);
-  const data = {
-    timestamp: new Date().toLocaleString(),
-    hoTen: formData.get('hoTen'),
-    sdt: formData.get('sdt'),
-    facebook: formData.get('facebook'),
-    diaChi: formData.get('diaChi')
-  };
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = document.getElementById('customerForm');
+    const formData = new FormData(form);
+    const data = {
+      timestamp: new Date().toLocaleString(),
+      hoTen: formData.get('hoTen'),
+      sdt: formData.get('sdt'),
+      facebook: formData.get('facebook'),
+      diaChi: formData.get('diaChi')
+    };
 
-  // Gửi dữ liệu đến Google Sheets qua Web App
-  fetch('https://script.google.com/macros/s/AKfycby1M8JhniZdHoIIT0tU0EbiYa9LNOCZpVC7tXSAshXC2kOB-_zchzq8KgN653tIkXJsCw/exec', {
-    method: 'GET',
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => response.json())
-  .then(result => {
-    if (result.status === 'success') {
-      // Chuyển hướng đến link Facebook
-      window.location.href = 'https://www.facebook.com/share/g/16H9QRDJSK/?mibextid=A7sQZp';
-    } else {
-      alert('Có lỗi xảy ra: ' + result.message);
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại.');
-  });
-}
-    }
-  </script>
+    // Gửi dữ liệu đến Google Sheets qua Web App
+    fetch('https://script.google.com/macros/s/AKfycby1M8JhniZdHoIIT0tU0EbiYa9LNOCZpVC7tXSAshXC2kOB-_zchzq8KgN653tIkXJsCw/exec?data=' + encodeURIComponent(JSON.stringify(data)), {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.status === 'success') {
+        // Chuyển hướng đến link Facebook
+        window.location.href = 'https://www.facebook.com/share/g/16H9QRDJSK/?mibextid=A7sQZp';
+      } else {
+        alert('Có lỗi xảy ra: ' + result.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại.');
+    });
+  }
+</script>
 </body>
 </html>
