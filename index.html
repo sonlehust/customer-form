@@ -67,7 +67,7 @@
   };
 
   // Gửi dữ liệu đến Google Sheets qua Web App
-  fetch('YOUR_WEB_APP_URL', {
+  fetch('https://script.google.com/macros/s/AKfycbyFRuGqBBewYYm-tNmrU0Rh9ljstDDalPKanUdWnUWzMBhFoWWPlJWDhhXXLuqGUXrkVg/exec', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json' }
@@ -76,7 +76,7 @@
   .then(result => {
     if (result.status === 'success') {
       // Chuyển hướng đến link Facebook
-      window.location.href = 'https://www.facebook.com/groups/yourgroup';
+      window.location.href = 'https://www.facebook.com/share/g/16H9QRDJSK/?mibextid=A7sQZp';
     } else {
       alert('Có lỗi xảy ra: ' + result.message);
     }
